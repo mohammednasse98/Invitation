@@ -9,7 +9,7 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="دعوة زفاف باشمهندس محمد و الأستاذة هدى">
 <meta property="og:description" content="يتشرفوا بدعوتكم — الجمعة 25/9 الساعة 3:30">
-<meta property="og:image" content="https://mohammednasse98.github.io/invitation/mohamed/preview.jpg">
+<meta property="og:image" content="mo.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:url" content="https://mohammednasse98.github.io/invitation/mohamed/">
@@ -88,12 +88,6 @@
   .value{font-size:1.25rem;font-weight:500}
   .sub{font-size:.9rem;color:var(--ink-soft);margin-top:2px}
 
-  .map-btn{
-    display:inline-flex;align-items:center;gap:8px;margin-top:12px;padding:10px 22px;border-radius:999px;
-    background:var(--emerald);color:var(--parchment);text-decoration:none;font-size:.9rem;
-  }
-  .map-btn:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
-  .map-btn svg{width:16px;height:16px}
 
   /* العد التنازلي */
   .count-title{font-size:.85rem;color:var(--ink-soft);margin-bottom:10px}
@@ -134,13 +128,12 @@
     dayName:   "الجمعة",
     dateText:  "25/9",
     timeText:  "الساعة 3:30",
-    venue:     "من عند مزلقان دنشواي",
+    venue:     "من عند مزلقان دنشوا ي",
     city:      "",
-    mapsLink:  "https://www.google.com/maps/search/?api=1&query=%D9%85%D8%B2%D9%84%D9%82%D8%A7%D9%86%20%D8%AF%D9%86%D8%B4%D9%88%D8%A7%D9%8A",
     // ميعاد الفرح للعد التنازلي (بتوقيت مصر): سنة-شهر-يوم T ساعة:دقيقة
     countdownTo: "2026-09-25T15:30:00+03:00",
     // الأغنية: حط الملف جنب index.html بنفس الاسم ده
-    songFile:  "song.mp3",
+    songFile:  "muisec.mpeg",
     songStart: 0,      // تبدأ من الثانية كام
     songEnd:   0       // لو عاوز تقطعها عند ثانية معينة وتعيد (0 = تشتغل للآخر وتعيد)
   };
@@ -181,10 +174,6 @@
         <div class="label">المكان</div>
         <div class="value" id="venue"></div>
         <div class="sub" id="city"></div>
-        <a class="map-btn" id="map" href="#" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>
-          افتح الموقع على الخريطة
-        </a>
       </div>
     </div>
 
@@ -209,7 +198,7 @@
   <svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="m22 9-6 6M16 9l6 6"/></svg>
 </button>
 
-<audio id="song" src="" preload="auto" playsinline></audio>
+<audio id="music" src="" preload="auto" playsinline></audio>
 
 <script>
   const $ = id => document.getElementById(id);
@@ -221,7 +210,6 @@
   $('time').textContent  = CONFIG.timeText;
   $('venue').textContent = CONFIG.venue;
   if (CONFIG.city.trim()) $('city').textContent = CONFIG.city; else $('city').style.display = 'none';
-  $('map').href = CONFIG.mapsLink;
 
   // ===== العد التنازلي =====
   const target = new Date(CONFIG.countdownTo).getTime();
@@ -240,7 +228,7 @@
   const timer = setInterval(tick, 1000); tick();
 
   // ===== الأغنية (ملف على نفس الموقع) =====
-  const audio = $('song');
+  const audio = $('music');
   audio.src = CONFIG.songFile;
   audio.loop = !CONFIG.songEnd;
 
