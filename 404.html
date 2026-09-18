@@ -294,10 +294,6 @@
           <span class="detail-label">المكان</span>
           <span class="detail-value venue-slot"></span>
           <span class="detail-sub city-slot"></span>
-          <a class="map-btn" target="_blank" rel="noopener" href="#" id="mapsLink">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.3"/></svg>
-            افتح الموقع على الخريطة
-          </a>
         </div>
  
       </div>
@@ -308,13 +304,7 @@
         <span class="rule"></span>
       </div>
  
-      <div class="music-player">
-        <button class="play-btn" id="playBtn" aria-label="تشغيل الأغنية">
-          <svg id="playIcon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-        </button>
-        <span class="music-label">اضغط للاستماع<br>لأغنية المناسبة</span>
-      </div>
-      <!-- مشغل يوتيوب مخفي بصريًا، بيشغل الصوت بس -->
+      <!-- مشغل يوتيوب مخفي بصريًا، بيشغل الصوت أوتوماتيك -->
       <div id="yt-hidden-player"><div id="yt-player"></div></div>
  
       <div class="footer-note">بإذن الله ورضاه</div>
@@ -338,24 +328,28 @@
   document.querySelectorAll('.venue-slot').forEach(el => el.textContent = clean(style.getPropertyValue('--venue-name')));
   document.querySelectorAll('.city-slot').forEach(el => el.textContent = clean(style.getPropertyValue('--venue-city')));
  
-  document.getElementById('mapsLink').href = clean(style.getPropertyValue('--maps-link'));
   document.querySelectorAll('.city-slot').forEach(el => { if (!el.textContent.trim()) el.style.display = 'none'; });
  
   document.title = `دعوة زفاف ${clean(style.getPropertyValue('--groom-name'))} و ${clean(style.getPropertyValue('--bride-name'))}`;
  
-  // ============ أغنية المناسبة (يوتيوب) ============
-  // عشان تغيّر الأغنية: غيّر YT_VIDEO_ID و YT_START_SECONDS بس
+  // ============ أغنية المناسبة (يوتيوب) - تشغيل تلقائي ============
+  // عشان تغيّر الأغنية: غيّر القيم دي بس
   const YT_VIDEO_ID = 'Z7YR5Tx3v-8';
-  const YT_START_SECONDS = 43;
- 
-  const playBtn = document.getElementById('playBtn');
-  const playIcon = document.getElementById('playIcon');
-  const pauseSVG = '<path d="M6 5h4v14H6zM14 5h4v14h-4z"/>';
-  const playSVG = '<path d="M8 5v14l11-7z"/>';
+  const YT_START_SECONDS = 44;   // تبدأ من الثانية دي
+  const YT_CLIP_DURATION = 17;   // تشتغل المدة دي بالثواني وبعدين تعيد نفسها تلقائي
  
   let ytPlayer = null;
   let ytReady = false;
-  let pendingPlay = false;
+  let loopTimer = null;
+  let loopRunning = false;
+ 
+  function scheduleLoop() {
+    clearTimeout(loopTimer);
+    loopTimer = setTimeout(() => {
+      ytPlayer.seekTo(YT_START_SECONDS, true);
+      scheduleLoop();
+    }, YT_CLIP_DURATION * 1000);
+  }
  
   const tag = document.createElement('script');
   tag.src = 'https://www.youtube.com/iframe_api';
@@ -366,31 +360,33 @@
       height: '1',
       width: '1',
       videoId: YT_VIDEO_ID,
-      playerVars: { start: YT_START_SECONDS, controls: 0, disablekb: 1, rel: 0 },
+      playerVars: { start: YT_START_SECONDS, autoplay: 1, controls: 0, disablekb: 1, rel: 0 },
       events: {
         onReady: () => {
           ytReady = true;
-          if (pendingPlay) { ytPlayer.playVideo(); pendingPlay = false; }
+          ytPlayer.playVideo();
         },
         onStateChange: (e) => {
-          if (e.data === YT.PlayerState.PLAYING) playIcon.innerHTML = pauseSVG;
-          else if (e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.ENDED) playIcon.innerHTML = playSVG;
+          if (e.data === YT.PlayerState.PLAYING && !loopRunning) {
+            loopRunning = true;
+            scheduleLoop();
+          }
         }
       }
     });
   };
  
-  playBtn.addEventListener('click', () => {
-    if (!ytReady) { pendingPlay = true; return; }
-    const state = ytPlayer.getPlayerState();
-    if (state === YT.PlayerState.PLAYING) {
-      ytPlayer.pauseVideo();
-    } else {
+  // بعض المتصفحات (خصوصًا الموبايل) بتمنع تشغيل صوت تلقائي قبل أول تفاعل من المستخدم.
+  // السطور دي بتلتقط أول لمسة/ضغطة في أي حتة بالصفحة وتشغّل الأغنية فورًا من غير أي زرار ظاهر.
+  function unlockAutoplay() {
+    if (ytReady && ytPlayer.getPlayerState() !== 1) {
       ytPlayer.playVideo();
     }
+  }
+  ['click', 'touchstart', 'scroll', 'keydown'].forEach(evt => {
+    document.addEventListener(evt, unlockAutoplay, { once: true, passive: true });
   });
 </script>
  
 </body>
 </html>
- 
