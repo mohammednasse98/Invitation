@@ -1,1018 +1,394 @@
 <!DOCTYPE html>
-
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<link rel="icon" type="image/svg+xml" href='data:image/svg+xml;utf8,
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-      <text x="50" y="70" font-size="80" font-family="Arial, Helvetica, sans-serif" fill="white" text-anchor="middle" font-weight="700">M</text>
-    </svg>'>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Follow up</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<title>دعوة زفاف</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
 
-html { background-color: #06080d; }
-
-body {
-background-color: #06080d;
-color: #f0f4ff;
-font-family: 'Cairo', 'Segoe UI', sans-serif;
-min-height: 100vh;
-width: 100%;
-}
-
-.app {
-display: flex;
-flex-direction: row-reverse;
-min-height: 100vh;
-}
-
-/* ── Sidebar ── */
-.sidebar {
-width: 260px;
-min-width: 260px;
-background-color: #0d1117;
-border-left: 1px solid rgba(255,255,255,0.08);
-display: flex;
-flex-direction: column;
-height: 100vh;
-position: sticky;
-top: 0;
-flex-shrink: 0;
-}
-
-.logo-area {
-padding: 28px 24px 20px;
-border-bottom: 1px solid rgba(255,255,255,0.07);
-}
-
-.logo-mark {
-font-size: 10px;
-letter-spacing: 0.15em;
-color: #4f8fff;
-font-family: 'JetBrains Mono', monospace;
-margin-bottom: 5px;
-}
-
-.logo-text { font-size: 1.5rem; font-weight: 900; color: #f0f4ff; }
-
-.nav { padding: 18px 12px; flex: 1; }
-
-.nav-item {
-display: flex;
-align-items: center;
-gap: 10px;
-padding: 11px 14px;
-border-radius: 12px;
-cursor: pointer;
-color: #6b7a99;
-font-size: 0.88rem;
-font-weight: 600;
-margin-bottom: 4px;
-border: 1px solid transparent;
-transition: all 0.2s;
-user-select: none;
-}
-
-.nav-item:hover { color: #f0f4ff; background-color: rgba(255,255,255,0.04); }
-
-.nav-item.active {
-color: #f0f4ff;
-background-color: rgba(79,143,255,0.1);
-border-color: rgba(79,143,255,0.2);
-}
-
-.nav-badge {
-margin-right: auto;
-background-color: #4f8fff;
-color: #000;
-font-size: 10px;
-font-weight: 700;
-padding: 2px 8px;
-border-radius: 20px;
-font-family: 'JetBrains Mono', monospace;
-min-width: 22px;
-text-align: center;
-}
-
-.nav-badge.muted { background-color: #1a2030; color: #6b7a99; }
-
-.sidebar-footer {
-padding: 16px 12px;
-border-top: 1px solid rgba(255,255,255,0.07);
-}
-
-.stats-row {
-background-color: #111620;
-border-radius: 12px;
-padding: 14px;
-display: flex;
-justify-content: space-around;
-border: 1px solid rgba(255,255,255,0.05);
-}
-
-.stat-item { text-align: center; }
-.stat-num { display: block; font-family: 'JetBrains Mono', monospace; font-size: 1.25rem; font-weight: 700; }
-.stat-lbl { display: block; font-size: 9px; color: #6b7a99; margin-top: 2px; }
-
-/* ── Main ── */
-.main {
-flex: 1;
-display: flex;
-flex-direction: column;
-background-color: #06080d;
-min-width: 0;
-min-height: 100vh;
-}
-
-.topbar {
-position: sticky;
-top: 0;
-z-index: 100;
-background-color: #06080d;
-border-bottom: 1px solid rgba(255,255,255,0.07);
-padding: 0 32px;
-height: 68px;
-display: flex;
-align-items: center;
-justify-content: space-between;
-}
-
-.topbar-title { font-size: 0.88rem; font-weight: 600; color: #6b7a99; }
-.topbar-title span { color: #f0f4ff; }
-
-.btn-new {
-display: flex;
-align-items: center;
-gap: 6px;
-background-color: #4f8fff;
-color: #000;
-border: none;
-padding: 10px 22px;
-border-radius: 10px;
-font-weight: 900;
-cursor: pointer;
-font-family: 'Cairo', sans-serif;
-font-size: 0.88rem;
-transition: opacity 0.2s;
-}
-
-.btn-new:hover { opacity: 0.85; }
-
-.menu-btn {
-display: none;
-background: none;
-border: 1px solid rgba(255,255,255,0.1);
-border-radius: 8px;
-color: #f0f4ff;
-font-size: 1rem;
-cursor: pointer;
-padding: 6px 10px;
-margin-left: 12px;
-}
-
-.content { padding: 28px 32px; flex: 1; }
-
-.view { display: none; }
-.view.active { display: block; }
-
-.grid {
-display: grid;
-grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-gap: 16px;
-}
-
-.empty {
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-min-height: 300px;
-color: #6b7a99;
-gap: 10px;
-}
-
-.empty-icon { font-size: 2.5rem; opacity: 0.3; }
-
-/* ── Card ── */
-.card {
-background-color: #111620;
-border: 1px solid rgba(255,255,255,0.07);
-border-radius: 18px;
-padding: 20px;
-position: relative;
-overflow: hidden;
-animation: fadeUp 0.3s ease both;
-transition: border-color 0.2s;
-}
-
-@keyframes fadeUp {
-from { opacity: 0; transform: translateY(12px); }
-to   { opacity: 1; transform: translateY(0); }
-}
-
-.card::before {
-content: '';
-position: absolute;
-top: 0; right: 0;
-width: 3px; height: 100%;
-background-color: #4f8fff;
-border-radius: 0 18px 18px 0;
-}
-
-.card.expired { border-color: rgba(255,69,96,0.2); }
-.card.expired::before { background-color: #ff4560; }
-.card.done-card::before { background-color: #00e5a0; }
-
-.card-head {
-display: flex;
-align-items: flex-start;
-justify-content: space-between;
-margin-bottom: 14px;
-}
-
-.card-date {
-font-family: 'JetBrains Mono', monospace;
-font-size: 11px;
-color: #6b7a99;
-line-height: 1.9;
-}
-
-.badge {
-font-size: 9px;
-font-weight: 700;
-padding: 3px 9px;
-border-radius: 20px;
-font-family: 'JetBrains Mono', monospace;
-text-transform: uppercase;
-letter-spacing: 0.04em;
-}
-
-.b-active  { background-color: rgba(79,143,255,0.15);  color: #4f8fff; border: 1px solid rgba(79,143,255,0.3); }
-.b-expired { background-color: rgba(255,69,96,0.15);   color: #ff4560; border: 1px solid rgba(255,69,96,0.3); }
-.b-done    { background-color: rgba(0,229,160,0.12);   color: #00e5a0; border: 1px solid rgba(0,229,160,0.25);}
-
-.phones { margin-bottom: 14px; }
-
-.phone-row {
-display: flex;
-align-items: center;
-gap: 10px;
-padding: 8px 12px;
-background-color: rgba(255,255,255,0.03);
-border-radius: 8px;
-margin-bottom: 5px;
-}
-
-.phone-lbl { font-size: 9px; color: #6b7a99; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; min-width: 36px; }
-.phone-val { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; font-weight: 700; color: #f0f4ff; direction: ltr; }
-
-.timer-box {
-background-color: rgba(0,0,0,0.35);
-border: 1px solid rgba(255,255,255,0.06);
-border-radius: 12px;
-padding: 12px;
-margin-bottom: 14px;
-text-align: center;
-}
-
-.timer-lbl { font-size: 9px; color: #6b7a99; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.1em; margin-bottom: 4px; }
-.timer-val { font-family: 'JetBrains Mono', monospace; font-size: 1.7rem; font-weight: 700; color: #f0f4ff; direction: ltr; display: block; }
-.timer-val.red { color: #ff4560; }
-
-.card-actions { display: flex; gap: 8px; }
-
-.btn-done {
-flex: 1; padding: 9px;
-border-radius: 9px;
-border: 1px solid rgba(0,229,160,0.3);
-background-color: rgba(0,229,160,0.07);
-color: #00e5a0;
-cursor: pointer;
-font-weight: 700;
-font-family: 'Cairo', sans-serif;
-font-size: 0.82rem;
-transition: background-color 0.2s;
-}
-
-.btn-done:hover { background-color: rgba(0,229,160,0.14); }
-
-.btn-edit {
-padding: 9px 13px;
-border-radius: 9px;
-border: 1px solid rgba(255,200,50,0.25);
-background-color: rgba(255,200,50,0.06);
-color: #ffc832;
-cursor: pointer;
-font-size: 0.85rem;
-transition: background-color 0.2s;
-}
-
-.btn-edit:hover { background-color: rgba(255,200,50,0.13); }
-
-.btn-del {
-padding: 9px 13px;
-border-radius: 9px;
-border: 1px solid rgba(255,69,96,0.25);
-background-color: rgba(255,69,96,0.06);
-color: #ff4560;
-cursor: pointer;
-font-size: 0.9rem;
-transition: background-color 0.2s;
-}
-
-.btn-del:hover { background-color: rgba(255,69,96,0.13); }
-
-/* ── Modal ── */
-.overlay {
-position: fixed; inset: 0;
-background-color: rgba(0,0,0,0.78);
-display: none;
-align-items: center; justify-content: center;
-z-index: 500;
-padding: 20px;
-}
-
-.overlay.open { display: flex; }
-
-.modal {
-background-color: #161d28;
-width: 100%; max-width: 440px;
-border-radius: 22px;
-border: 1px solid rgba(255,255,255,0.1);
-overflow: hidden;
-box-shadow: 0 30px 80px rgba(0,0,0,0.7);
-animation: mIn 0.25s ease;
-}
-
-@keyframes mIn {
-from { opacity: 0; transform: scale(0.95) translateY(8px); }
-to   { opacity: 1; transform: scale(1) translateY(0); }
-}
-
-.modal-head { padding: 22px 26px 0; display: flex; align-items: center; justify-content: space-between; }
-.modal-title { font-size: 1rem; font-weight: 700; }
-
-.modal-close {
-width: 30px; height: 30px;
-background-color: rgba(255,255,255,0.06);
-border: none; border-radius: 8px;
-color: #6b7a99; cursor: pointer; font-size: 0.85rem;
-display: flex; align-items: center; justify-content: center;
-transition: background-color 0.2s;
-}
-
-.modal-close:hover { background-color: rgba(255,255,255,0.1); color: #f0f4ff; }
-
-.modal-body { padding: 22px 26px 26px; }
-
-.day-picker { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
-
-.day-opt {
-border: 1px solid rgba(255,255,255,0.07);
-background-color: rgba(255,255,255,0.02);
-border-radius: 12px; padding: 12px;
-text-align: center; cursor: pointer;
-transition: all 0.2s; user-select: none;
-}
-
-.day-opt.active { border-color: #4f8fff; background-color: rgba(79,143,255,0.1); }
-
-.day-opt-lbl { font-size: 10px; color: #6b7a99; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.1em; }
-.day-opt-date { display: block; font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; font-weight: 700; color: #f0f4ff; margin-top: 4px; }
-
-.time-wrap {
-background-color: rgba(0,0,0,0.3);
-border: 1px solid rgba(255,255,255,0.08);
-border-radius: 12px; margin-bottom: 14px;
-}
-
-#f-time {
-width: 100%; background: transparent; border: none;
-color: #f0f4ff; font-family: 'JetBrains Mono', monospace;
-font-size: 2rem; font-weight: 700; text-align: center;
-padding: 14px; cursor: pointer; direction: ltr;
-}
-
-#f-time::-webkit-calendar-picker-indicator { filter: invert(1); opacity: 0.4; cursor: pointer; }
-
-.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
-
-.field {
-background-color: rgba(255,255,255,0.03);
-border: 1px solid rgba(255,255,255,0.07);
-border-radius: 10px; overflow: hidden;
-transition: border-color 0.2s;
-}
-
-.field:focus-within { border-color: #4f8fff; }
-
-.field label { display: block; font-size: 9px; color: #6b7a99; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.1em; padding: 9px 12px 0; }
-.field input { width: 100%; background: transparent; border: none; color: #f0f4ff; font-family: 'JetBrains Mono', monospace; font-size: 0.92rem; font-weight: 700; padding: 3px 12px 9px; direction: ltr; }
-.field input::placeholder { color: #3a4560; font-weight: 400; }
-
-/* edit mode: hide phone fields, only show time + day */
-.modal.edit-mode .field-row { display: none; }
-.modal.edit-mode .day-picker { display: grid; }
-
-.modal-actions { display: flex; gap: 10px; }
-
-.btn-save {
-flex: 1; padding: 12px;
-background-color: #4f8fff; border: none; border-radius: 10px;
-color: #000; font-weight: 900; font-family: 'Cairo', sans-serif; font-size: 0.9rem;
-cursor: pointer; transition: opacity 0.2s;
-}
-
-.btn-save:hover { opacity: 0.85; }
-
-.btn-cancel {
-padding: 12px 18px; background: transparent;
-border: 1px solid rgba(255,255,255,0.1); border-radius: 10px;
-color: #6b7a99; cursor: pointer; font-family: 'Cairo', sans-serif; font-size: 0.88rem;
-transition: all 0.2s;
-}
-
-.btn-cancel:hover { color: #f0f4ff; border-color: rgba(255,255,255,0.2); }
-
-.sb-backdrop { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 190; }
-
-/* ── Responsive ── */
-@media (max-width: 860px) {
-.sidebar {
-position: fixed; top: 0; right: 0; height: 100vh;
-z-index: 200; transform: translateX(100%);
-transition: transform 0.3s ease;
-}
-.sidebar.open { transform: translateX(0); }
-.sb-backdrop.show { display: block; }
-.menu-btn { display: block; }
-.topbar { padding: 0 16px; }
-.content { padding: 20px 16px; }
-}
-
-@media (max-width: 560px) {
-.grid { grid-template-columns: 1fr; }
-.field-row { grid-template-columns: 1fr; }
-.topbar-title { display: none; }
-.timer-val { font-size: 1.45rem; }
-}
-
-/* ── Toast ── */
-#toast-container {
-  position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 9999;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  pointer-events: none;
-  width: max-content;
-  max-width: 90vw;
-}
-
-.toast {
-  background: linear-gradient(135deg, #1a2540, #0f1826);
-  border: 1px solid rgba(255,69,96,0.5);
-  border-radius: 16px;
-  padding: 16px 22px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,69,96,0.2);
-  animation: toastIn 0.4s cubic-bezier(0.34,1.56,0.64,1) both;
-  pointer-events: auto;
-  min-width: 280px;
-}
-
-.toast.hiding { animation: toastOut 0.35s ease forwards; }
-
-@keyframes toastIn {
-  from { opacity:0; transform: translateY(-20px) scale(0.9); }
-  to   { opacity:1; transform: translateY(0)    scale(1);   }
-}
-@keyframes toastOut {
-  from { opacity:1; transform: translateY(0)    scale(1);   }
-  to   { opacity:0; transform: translateY(-12px) scale(0.95); }
-}
-
-.toast-icon { font-size: 1.8rem; flex-shrink: 0; }
-.toast-body { flex: 1; }
-.toast-title { font-size: 0.92rem; font-weight: 700; color: #f0f4ff; margin-bottom: 3px; }
-.toast-msg   { font-size: 0.78rem; color: #8a9bbb; font-family: 'JetBrains Mono', monospace; }
-.toast-close {
-  background: rgba(255,255,255,0.07); border: none; border-radius: 8px;
-  color: #6b7a99; cursor: pointer; font-size: 0.8rem;
-  width: 26px; height: 26px; display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0; transition: background 0.2s;
-}
-.toast-close:hover { background: rgba(255,255,255,0.14); color: #f0f4ff; }
-
-/* ── Notif permission banner ── */
-#notif-banner {
-  display: none;
-  align-items: center;
-  gap: 10px;
-  background: rgba(255,165,0,0.1);
-  border: 1px solid rgba(255,165,0,0.3);
-  border-radius: 10px;
-  padding: 8px 14px;
-  font-size: 0.8rem;
-  color: #ffb347;
-  cursor: pointer;
-  transition: background 0.2s;
-  white-space: nowrap;
-}
-#notif-banner:hover { background: rgba(255,165,0,0.18); }
- #mazola {
-            position: fixed;
-            bottom: 10px;
-            left: 20px;
-            width: 200px;
-            text-align: center;
-            background: linear-gradient(45deg, #6f0779, #000000);
-            color: #fff;
-            font-weight: bold;
-            font-size: 20px;
-            padding: 8px 12px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            z-index: 9999;
-            font-family: "Cairo", Arial, sans-serif;
-            pointer-events: none;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-
-            0%,
-            100% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.1);
-            }
-        }
+  /* ============================================================
+     عشان تغيّر البيانات، غيّر القيم هنا بس (بين علامات ")
+     ============================================================ */
+  :root{
+    --groom-name: "باشمهندس محمد";
+    --bride-name: "الأستاذة هدى";
+    --wedding-day-name: "الجمعة";
+    --wedding-date: "25/9";
+    --wedding-time: "الساعة 3:30";
+    --venue-name: "من عند مزلقان دنشواي";
+    --venue-city: "";
+    --maps-link: "https://www.google.com/maps/search/?api=1&query=%D9%85%D8%B2%D9%84%D9%82%D8%A7%D9%86%20%D8%AF%D9%86%D8%B4%D9%88%D8%A7%D9%8A";
+  }
+
+  * { box-sizing: border-box; margin:0; padding:0; }
+
+  :root{
+    --ink: #2b241d;
+    --ink-soft: #5b5044;
+    --parchment: #faf3e6;
+    --parchment-2: #f3e9d7;
+    --gold: #b8892f;
+    --gold-deep: #8c661f;
+    --emerald: #1f3d32;
+    --emerald-deep: #14261f;
+  }
+
+  html,body{
+    background: var(--emerald-deep);
+    font-family: 'Tajawal', sans-serif;
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  body{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding: 32px 16px;
+    background:
+      radial-gradient(circle at 50% 0%, #24473a 0%, var(--emerald-deep) 65%);
+  }
+
+  .card{
+    position:relative;
+    width: 100%;
+    max-width: 480px;
+    background: var(--parchment);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.45);
+    border: 1px solid rgba(184,137,47,0.35);
+  }
+
+  .frame{
+    position:absolute;
+    inset: 10px;
+    border: 1px solid var(--gold);
+    border-radius: 3px;
+    pointer-events:none;
+    opacity:0.55;
+  }
+  .frame::before, .frame::after,
+  .frame-inner::before, .frame-inner::after{
+    content:'';
+    position:absolute;
+    width: 34px; height: 34px;
+    border: 1px solid var(--gold);
+  }
+  .frame::before{ top:-1px; right:-1px; border-left:none; border-bottom:none; }
+  .frame::after{ bottom:-1px; left:-1px; border-right:none; border-top:none; }
+  .frame-inner{ position:absolute; inset:10px; pointer-events:none; }
+  .frame-inner::before{ top:-1px; left:-1px; border-right:none; border-bottom:none; }
+  .frame-inner::after{ bottom:-1px; right:-1px; border-left:none; border-top:none; }
+
+  .content{
+    position:relative;
+    padding: 52px 34px 40px;
+    text-align:center;
+  }
+
+  .eyebrow-orn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    color: var(--gold-deep);
+    margin-bottom: 18px;
+  }
+  .eyebrow-orn svg{ width:22px; height:22px; }
+  .eyebrow-orn .line{
+    height:1px; width:36px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .bismillah{
+    font-family:'Aref Ruqaa', serif;
+    font-size: 1.05rem;
+    color: var(--ink-soft);
+    margin-bottom: 22px;
+  }
+
+  .invite-line{
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    margin-bottom: 6px;
+  }
+
+  .names{
+    font-family:'Aref Ruqaa', serif;
+    font-weight:700;
+    font-size: 2.6rem;
+    line-height:1.5;
+    color: var(--emerald);
+    margin: 14px 0 4px;
+  }
+
+  .amp{
+    display:block;
+    font-family:'Aref Ruqaa', serif;
+    color: var(--gold-deep);
+    font-size: 1.4rem;
+    margin: 2px 0;
+  }
+
+  .divider{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap: 14px;
+    margin: 26px 0;
+  }
+  .divider .diamond{
+    width:8px; height:8px;
+    background: var(--gold);
+    transform: rotate(45deg);
+  }
+  .divider .rule{
+    height:1px;
+    width: 70px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .details{
+    display:flex;
+    flex-direction:column;
+    gap: 18px;
+    margin-bottom: 28px;
+  }
+
+  .detail-row{
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+  }
+
+  .detail-label{
+    font-size: 0.72rem;
+    color: var(--gold-deep);
+    letter-spacing: 0.5px;
+  }
+
+  .detail-value{
+    font-size: 1.15rem;
+    color: var(--ink);
+    font-weight:500;
+  }
+  .detail-sub{
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+
+  .map-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    margin-top:6px;
+    padding: 9px 18px;
+    border: 1px solid var(--gold-deep);
+    border-radius: 999px;
+    color: var(--emerald);
+    text-decoration:none;
+    font-size: 0.85rem;
+    align-self:center;
+    transition: background .2s ease, color .2s ease;
+  }
+  .map-btn:hover{ background: var(--emerald); color: var(--parchment); border-color: var(--emerald); }
+  .map-btn svg{ width:15px; height:15px; }
+
+  .music-player{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap: 12px;
+    margin-top: 6px;
+  }
+
+  .play-btn{
+    width: 46px; height:46px;
+    border-radius:50%;
+    background: var(--emerald);
+    color: var(--parchment);
+    border:none;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    flex-shrink:0;
+    transition: transform .15s ease;
+  }
+  .play-btn:active{ transform: scale(0.92); }
+  .play-btn svg{ width:18px; height:18px; }
+
+  .music-label{
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+    text-align:right;
+  }
+
+  #yt-hidden-player{
+    position:absolute;
+    width:1px; height:1px;
+    overflow:hidden;
+    opacity:0.01;
+    pointer-events:none;
+  }
+
+  .footer-note{
+    margin-top: 30px;
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+    font-style:italic;
+  }
+
+  @media (max-width: 380px){
+    .names{ font-size: 2.1rem; }
+    .content{ padding: 44px 22px 32px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .play-btn{ transition:none; }
+  }
 </style>
-
 </head>
 <body>
-    <div id="mazola">Mazola 😎🎶</div>
 
-
-<div id="toast-container"></div>
-<div class="sb-backdrop" id="sbback" onclick="closeSB()"></div>
-
-<div class="app">
-  <!-- Sidebar -->
-  <aside class="sidebar" id="sidebar">
-    <div class="logo-area">
-      <div class="logo-mark">// REMINDER</div>
-      <div class="logo-text">Follow up</div>
-    </div>
-    <nav class="nav">
-      <div class="nav-item active" id="tab-active" onclick="setView('active')">
-        <span>📋</span>
-        <span>  will follow up</span>
-        <span class="nav-badge" id="badge-active">0</span>
-      </div>
-      <div class="nav-item" id="tab-done" onclick="setView('done')">
-        <span>✅</span>
-        <span>follow up done</span>
-        <span class="nav-badge muted" id="badge-done">0</span>
-      </div>
-    </nav>
-   
-  </aside>
-
-  <!-- Main -->
-  <main class="main">
-    <header class="topbar">
-      <div style="display:flex;align-items:center;gap:10px;">
-        <button class="menu-btn" onclick="toggleSB()">☰</button>
-        <div class="topbar-title">Control Follow</div>
-      </div>
-      <button class="btn-new" onclick="openModal()">＋ Add New</button>
-      <div id="notif-banner" onclick="askNotifPermission()" title="اضغط لتفعيل الإشعارات">
-        🔔 فعّل الإشعارات
-      </div>
-    </header>
+  <div class="card">
+    <div class="frame"></div>
+    <div class="frame-inner"></div>
 
     <div class="content">
-      <div class="view active" id="v-active">
-        <div class="grid" id="grid-active"></div>
-        <div class="empty" id="emp-active" style="display:none">
-          <div class="empty-icon">🗓️</div>
-          <div style="font-size:0.9rem">لا توجد مواعيد جارية</div>
-        </div>
-      </div>
-      <div class="view" id="v-done">
-        <div class="grid" id="grid-done"></div>
-        <div class="empty" id="emp-done" style="display:none">
-          <div class="empty-icon">📦</div>
-          <div style="font-size:0.9rem">الأرشيف فارغ</div>
-        </div>
-      </div>
-    </div>
-  </main>
-</div>
 
-<!-- Modal -->
-<div class="overlay" id="overlay">
-  <div class="modal" id="modal">
-    <div class="modal-head">
-      <span class="modal-title" id="modal-title"> ADD Follow Up New</span>
-      <button class="modal-close" onclick="closeModal()">✕</button>
-    </div>
-    <div class="modal-body">
-      <div class="day-picker">
-        <div class="day-opt active" id="opt-today" onclick="selDay(0)" data-val="">
-          <div class="day-opt-lbl">Today</div>
-          <span class="day-opt-date" id="lbl-today">—</span>
-        </div>
-        <div class="day-opt" id="opt-tmrw" onclick="selDay(1)" data-val="">
-          <div class="day-opt-lbl">Tomorrow</div>
-          <span class="day-opt-date" id="lbl-tmrw">—</span>
-        </div>
+      <div class="eyebrow-orn">
+        <span class="line"></span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"/></svg>
+        <span class="line"></span>
       </div>
-      <div class="time-wrap"><input type="time" id="f-time"></div>
-      <div class="field-row">
-        <div class="field">
-          <label for="f-land">ADSL Number</label>
-          <input id="f-land" type="text" placeholder="02xxxxxxxx">
-        </div>
-        <div class="field">
-          <label for="f-mob">Mobile Number</label>
-          <input id="f-mob" type="text" placeholder="01xxxxxxxxx">
-        </div>
+
+      <div class="bismillah">بسم الله الرحمن الرحيم</div>
+      <div class="invite-line">يتشرف</div>
+      <div class="invite-line">بدعوتكم لحضور حفل زفاف</div>
+
+      <div class="names">
+        <var class="groom-name-slot"></var>
+        <span class="amp">و</span>
+        <var class="bride-name-slot"></var>
       </div>
-      <div class="modal-actions">
-        <button class="btn-save" id="btn-save" onclick="save()">Save</button>
-        <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+
+      <div class="divider">
+        <span class="rule"></span>
+        <span class="diamond"></span>
+        <span class="rule"></span>
       </div>
+
+      <div class="details">
+
+        <div class="detail-row">
+          <span class="detail-label">التاريخ</span>
+          <span class="detail-value date-slot"></span>
+          <span class="detail-sub time-slot"></span>
+        </div>
+
+        <div class="detail-row">
+          <span class="detail-label">المكان</span>
+          <span class="detail-value venue-slot"></span>
+          <span class="detail-sub city-slot"></span>
+          <a class="map-btn" target="_blank" rel="noopener" href="#" id="mapsLink">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.3"/></svg>
+            افتح الموقع على الخريطة
+          </a>
+        </div>
+
+      </div>
+
+      <div class="divider">
+        <span class="rule"></span>
+        <span class="diamond"></span>
+        <span class="rule"></span>
+      </div>
+
+      <div class="music-player">
+        <button class="play-btn" id="playBtn" aria-label="تشغيل الأغنية">
+          <svg id="playIcon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <span class="music-label">اضغط للاستماع<br>لأغنية المناسبة</span>
+      </div>
+      <!-- مشغل يوتيوب مخفي بصريًا، بيشغل الصوت بس -->
+      <div id="yt-hidden-player"><div id="yt-player"></div></div>
+
+      <div class="footer-note">بإذن الله ورضاه</div>
+
     </div>
   </div>
-</div>
 
 <script>
-  var data = JSON.parse(localStorage.getItem('rem_v3') || '[]');
-  var selDate = '';
-  var editingId = null; // null = new, number = edit mode
+  // ============ البيانات بتتقرأ من فوق تلقائي ============
+  const style = getComputedStyle(document.documentElement);
+  const clean = v => v.trim().replace(/^"(.*)"$/, '$1');
 
-  // ── Audio ────────────────────────────────────────────────────────────────
-  var audioCtx = null;
+  document.querySelectorAll('.groom-name-slot').forEach(el => el.textContent = clean(style.getPropertyValue('--groom-name')));
+  document.querySelectorAll('.bride-name-slot').forEach(el => el.textContent = clean(style.getPropertyValue('--bride-name')));
 
-  function getAudioCtx() {
-    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    return audioCtx;
-  }
+  const dayName = clean(style.getPropertyValue('--wedding-day-name'));
+  const dateVal = clean(style.getPropertyValue('--wedding-date'));
+  document.querySelectorAll('.date-slot').forEach(el => el.textContent = `${dayName} ${dateVal}`);
+  document.querySelectorAll('.time-slot').forEach(el => el.textContent = clean(style.getPropertyValue('--wedding-time')));
 
-  function playLoudBeep() {
-    try {
-      var ctx = getAudioCtx();
-      [0, 0.35, 0.7].forEach(function(startOffset) {
-        var osc    = ctx.createOscillator();
-        var gainNd = ctx.createGain();
-        osc.connect(gainNd);
-        gainNd.connect(ctx.destination);
-        osc.type = 'square';
-        osc.frequency.setValueAtTime(880, ctx.currentTime + startOffset);
-        gainNd.gain.setValueAtTime(0, ctx.currentTime + startOffset);
-        gainNd.gain.linearRampToValueAtTime(1.0, ctx.currentTime + startOffset + 0.01);
-        gainNd.gain.linearRampToValueAtTime(0,   ctx.currentTime + startOffset + 0.28);
-        osc.start(ctx.currentTime + startOffset);
-        osc.stop(ctx.currentTime  + startOffset + 0.3);
-      });
-    } catch(e) { console.warn('Audio error:', e); }
-  }
+  document.querySelectorAll('.venue-slot').forEach(el => el.textContent = clean(style.getPropertyValue('--venue-name')));
+  document.querySelectorAll('.city-slot').forEach(el => el.textContent = clean(style.getPropertyValue('--venue-city')));
 
-  // ── Notifications ────────────────────────────────────────────────────────
-  function requestNotifPermission() {
-    if ('Notification' in window && Notification.permission === 'default') {
-      Notification.requestPermission().then(updateBanner);
-    }
-    updateBanner();
-  }
+  document.getElementById('mapsLink').href = clean(style.getPropertyValue('--maps-link'));
+  document.querySelectorAll('.city-slot').forEach(el => { if (!el.textContent.trim()) el.style.display = 'none'; });
 
-  function askNotifPermission() {
-    if (!('Notification' in window)) { showToast('غير مدعوم', 'متصفحك لا يدعم الإشعارات', '⚠️'); return; }
-    Notification.requestPermission().then(function(perm) {
-      updateBanner();
-      if (perm === 'granted') showToast('تم التفعيل!', 'ستصلك إشعارات عند حلول المواعيد', '✅');
-      else if (perm === 'denied') showToast('محظور', 'يجب السماح يدوياً من إعدادات المتصفح', '🔕');
-    });
-  }
+  document.title = `دعوة زفاف ${clean(style.getPropertyValue('--groom-name'))} و ${clean(style.getPropertyValue('--bride-name'))}`;
 
-  function updateBanner() {
-    var banner = document.getElementById('notif-banner');
-    if (!('Notification' in window) || Notification.permission === 'granted') {
-      banner.style.display = 'none';
-    } else {
-      banner.style.display = 'flex';
-      if (Notification.permission === 'denied') {
-        banner.textContent = '🔕 الإشعارات محظورة';
-        banner.title = 'افتح إعدادات المتصفح وأذن للموقع بالإشعارات';
-      } else {
-        banner.innerHTML = '🔔 فعّل الإشعارات';
-        banner.title = 'اضغط لتفعيل الإشعارات';
-      }
-    }
-  }
+  // ============ أغنية المناسبة (يوتيوب) ============
+  // عشان تغيّر الأغنية: غيّر YT_VIDEO_ID و YT_START_SECONDS بس
+  const YT_VIDEO_ID = 'Z7YR5Tx3v-8';
+  const YT_START_SECONDS = 43;
 
-  function sendNotification(item) {
-    showToast('⏰ حان موعدك!', 'أرضي: ' + item.land + (item.mob ? ' | موبايل: ' + item.mob : ''), '📞');
-    if (!('Notification' in window)) return;
-    if (Notification.permission === 'granted') fireNotif(item);
-    else if (Notification.permission !== 'denied') {
-      Notification.requestPermission().then(function(perm) {
-        updateBanner();
-        if (perm === 'granted') fireNotif(item);
-      });
-    }
-  }
+  const playBtn = document.getElementById('playBtn');
+  const playIcon = document.getElementById('playIcon');
+  const pauseSVG = '<path d="M6 5h4v14H6zM14 5h4v14h-4z"/>';
+  const playSVG = '<path d="M8 5v14l11-7z"/>';
 
-  function fireNotif(item) {
-    try {
-      var n = new Notification('⏰ حان موعدك!', {
-        body: 'الرقم الأرضي: ' + item.land + (item.mob ? '\nالموبايل: ' + item.mob : ''),
-        icon: 'https://cdn-icons-png.flaticon.com/512/747/747310.png',
-        tag: 'reminder-' + item.id,
-        requireInteraction: true,
-        silent: false
-      });
-      n.onclick = function() { window.focus(); n.close(); };
-      setTimeout(function() { n.close(); }, 20000);
-    } catch(e) { console.warn('Notification error:', e); }
-  }
+  let ytPlayer = null;
+  let ytReady = false;
+  let pendingPlay = false;
 
-  // ── Toast ─────────────────────────────────────────────────────────────────
-  function showToast(title, msg, icon) {
-    var container = document.getElementById('toast-container');
-    var t = document.createElement('div');
-    t.className = 'toast';
-    t.innerHTML =
-      '<div class="toast-icon">'+(icon||'🔔')+'</div>'
-      +'<div class="toast-body">'
-        +'<div class="toast-title">'+title+'</div>'
-        +'<div class="toast-msg">'+msg+'</div>'
-      +'</div>'
-      +'<button class="toast-close" onclick="dismissToast(this.parentElement)">✕</button>';
-    container.appendChild(t);
-    setTimeout(function() { dismissToast(t); }, 8000);
-  }
+  const tag = document.createElement('script');
+  tag.src = 'https://www.youtube.com/iframe_api';
+  document.body.appendChild(tag);
 
-  function dismissToast(el) {
-    if (!el || el.classList.contains('hiding')) return;
-    el.classList.add('hiding');
-    setTimeout(function() { if (el.parentElement) el.parentElement.removeChild(el); }, 350);
-  }
-
-  // ── Helpers ──────────────────────────────────────────────────────────────
-  function pad(n) { return String(n).padStart(2,'0'); }
-  function fmtYMD(d) { return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()); }
-
-  function initDates() {
-    var today = new Date();
-    var tmrw  = new Date(); tmrw.setDate(today.getDate()+1);
-    var short = function(d){ return pad(d.getDate())+'/'+pad(d.getMonth()+1); };
-    document.getElementById('lbl-today').textContent = short(today);
-    document.getElementById('lbl-tmrw').textContent  = short(tmrw);
-    document.getElementById('opt-today').setAttribute('data-val', fmtYMD(today));
-    document.getElementById('opt-tmrw').setAttribute('data-val',  fmtYMD(tmrw));
-    selDate = fmtYMD(today);
-    document.getElementById('opt-today').classList.add('active');
-    document.getElementById('opt-tmrw').classList.remove('active');
-  }
-
-  function selDay(i) {
-    document.getElementById('opt-today').classList.remove('active');
-    document.getElementById('opt-tmrw').classList.remove('active');
-    var el = i===0 ? document.getElementById('opt-today') : document.getElementById('opt-tmrw');
-    el.classList.add('active');
-    selDate = el.getAttribute('data-val');
-  }
-
-  // ── Modal open/close ─────────────────────────────────────────────────────
-  function openModal() {
-    requestNotifPermission();
-    editingId = null;
-    document.getElementById('modal-title').textContent = 'ADD Follow Up New  ';
-    document.getElementById('btn-save').textContent = 'Save ';
-    document.getElementById('modal').classList.remove('edit-mode');
-    document.getElementById('f-land').value = '';
-    document.getElementById('f-mob').value  = '';
-    document.getElementById('f-time').value = '';
-    initDates();
-    document.getElementById('overlay').classList.add('open');
-  }
-
-  function openEditModal(id) {
-    var item = data.find(function(x){ return x.id == id; });
-    if (!item) return;
-    editingId = id;
-    document.getElementById('modal-title').textContent = 'Edit  Time';
-    document.getElementById('btn-save').textContent = 'Save Edit ';
-    document.getElementById('modal').classList.add('edit-mode');
-
-    // Init dates and pre-select the item's date
-    initDates();
-    var itemDate = item.date.substring(0, 10);
-    var today = document.getElementById('opt-today').getAttribute('data-val');
-    var tmrw  = document.getElementById('opt-tmrw').getAttribute('data-val');
-    document.getElementById('opt-today').classList.remove('active');
-    document.getElementById('opt-tmrw').classList.remove('active');
-    if (itemDate === today) {
-      document.getElementById('opt-today').classList.add('active');
-      selDate = today;
-    } else if (itemDate === tmrw) {
-      document.getElementById('opt-tmrw').classList.add('active');
-      selDate = tmrw;
-    } else {
-      // date not today/tomorrow — default to today
-      document.getElementById('opt-today').classList.add('active');
-      selDate = today;
-    }
-
-    // Pre-fill time
-    var timePart = item.date.substring(11, 16); // "HH:MM"
-    document.getElementById('f-time').value = timePart;
-
-    document.getElementById('overlay').classList.add('open');
-  }
-
-  function closeModal() {
-    document.getElementById('overlay').classList.remove('open');
-    document.getElementById('modal').classList.remove('edit-mode');
-    document.getElementById('f-land').value = '';
-    document.getElementById('f-mob').value  = '';
-    document.getElementById('f-time').value = '';
-    editingId = null;
-  }
-
-  // ── Save (new or edit) ───────────────────────────────────────────────────
-  function save() {
-    var t = document.getElementById('f-time').value;
-    if (!t) return;
-
-    if (editingId !== null) {
-      // Edit mode: only update date/time
-      var i = data.findIndex(function(x){ return x.id == editingId; });
-      if (i > -1) {
-        data[i].date     = selDate + 'T' + t + ':00';
-        data[i].notified = false; // reset notification so it fires again if needed
-      }
-      persist(); closeModal(); render();
-      showToast('تم التعديل', 'تم تحديث وقت الموعد بنجاح', '✏️');
-    } else {
-      // New mode
-      var l = document.getElementById('f-land').value.trim();
-      var m = document.getElementById('f-mob').value.trim();
-      if (!l) return;
-      data.push({ id: Date.now(), land: l, mob: m, date: selDate+'T'+t+':00', status: 'active', notified: false });
-      persist(); closeModal(); render();
-    }
-  }
-
-  function finish(id) {
-    var i = data.findIndex(function(x){ return x.id==id; });
-    if (i>-1) { data[i].status='done'; persist(); render(); }
-  }
-
-  function del(id) {
-    if (!confirm('حذف هذا الموعد؟')) return;
-    data = data.filter(function(x){ return x.id!=id; });
-    persist(); render();
-  }
-
-  function persist() { localStorage.setItem('rem_v3', JSON.stringify(data)); }
-
-  function fmtTimer(ms) {
-    if (ms<=0) return '00:00:00';
-    var h=Math.floor(ms/3600000), mi=Math.floor((ms%3600000)/60000), s=Math.floor((ms%60000)/1000);
-    return [h,mi,s].map(function(v){ return pad(v); }).join(':');
-  }
-
-  function render() {
-    var gA = document.getElementById('grid-active');
-    var gD = document.getElementById('grid-done');
-    gA.innerHTML = ''; gD.innerHTML = '';
-
-    var active = data.filter(function(r){ return r.status==='active'; });
-    var done   = data.filter(function(r){ return r.status==='done'; });
-
-    // ── Sort active by nearest date ──
-    active.sort(function(a, b){ return new Date(a.date) - new Date(b.date); });
-    // ── Sort done by most recently completed (latest date first) ──
-    done.sort(function(a, b){ return new Date(b.date) - new Date(a.date); });
-
-    active.forEach(function(r,i){ gA.appendChild(makeCard(r,i)); });
-    done.forEach(function(r,i)  { gD.appendChild(makeCard(r,i)); });
-
-    document.getElementById('emp-active').style.display = active.length ? 'none' : 'flex';
-    document.getElementById('emp-done').style.display   = done.length   ? 'none' : 'flex';
-    document.getElementById('badge-active').textContent = active.length;
-    document.getElementById('badge-done').textContent   = done.length;
-    document.getElementById('st-total').textContent     = data.length;
-    document.getElementById('st-done').textContent      = done.length;
-    document.getElementById('st-exp').textContent       = active.filter(function(r){ return new Date(r.date)<new Date(); }).length;
-  }
-
-  function makeCard(r, delay) {
-    var now=new Date(), dt=new Date(r.date), diff=dt-now;
-    var expired = diff<=0 && r.status==='active';
-    var isDone  = r.status==='done';
-
-    var card = document.createElement('div');
-    card.className = 'card'+(expired?' expired':'')+(isDone?' done-card':'');
-    card.style.animationDelay = (delay*0.05)+'s';
-
-    var bc = isDone ? 'b-done' : expired ? 'b-expired' : 'b-active';
-    var bt = isDone ? 'مكتمل'  : expired ? 'Deadline passed'     : 'Running';
-
-    var ds = pad(dt.getDate())+'/'+pad(dt.getMonth()+1)+'/'+dt.getFullYear();
-    var ts = pad(dt.getHours())+':'+pad(dt.getMinutes());
-
-    var timerHTML = '';
-    if (r.status==='active') {
-      timerHTML = '<div class="timer-box">'
-        +'<div class="timer-lbl">COUNTDOWN</div>'
-        +'<span class="timer-val'+(expired?' red':'')+'" id="tmr-'+r.id+'">'+fmtTimer(diff)+'</span>'
-        +'</div>';
-    }
-
-    // Buttons: done + edit only for active, del always
-    var actionsHTML = '';
-    if (r.status === 'active') {
-      actionsHTML =
-        '<button class="btn-done" onclick="finish('+r.id+')">✓  Done</button>'
-        +'<button class="btn-edit" onclick="openEditModal('+r.id+')" title="تعديل الوقت">✏️</button>'
-        +'<button class="btn-del" onclick="del('+r.id+')">🗑</button>';
-    } else {
-      actionsHTML = '<button class="btn-del" style="flex:1" onclick="del('+r.id+')">🗑 حذف</button>';
-    }
-
-    card.innerHTML =
-      '<div class="card-head">'
-        +'<div class="card-date">📅 '+ds+'<br>🕒 '+ts+'</div>'
-        +'<span class="badge '+bc+'">'+bt+'</span>'
-      +'</div>'
-      +'<div class="phones">'
-        +(r.land?'<div class="phone-row"><span class="phone-lbl">ADSL Number</span><span class="phone-val">'+r.land+'</span></div>':'')
-        +(r.mob ?'<div class="phone-row"><span class="phone-lbl">موبايل</span><span class="phone-val">'+r.mob+'</span></div>':'')
-      +'</div>'
-      +timerHTML
-      +'<div class="card-actions">'+actionsHTML+'</div>';
-
-    return card;
-  }
-
-  function triggerAlert(item) {
-    playLoudBeep();
-    sendNotification(item);
-  }
-
-  // ── Tick ─────────────────────────────────────────────────────────────────
-  setInterval(function() {
-    var changed=false;
-    data.forEach(function(r) {
-      if (r.status!=='active') return;
-      var diff=new Date(r.date)-new Date();
-      var el=document.getElementById('tmr-'+r.id);
-      if (el) {
-        el.textContent=fmtTimer(diff);
-        if (diff<=0) {
-          el.classList.add('red');
-          if (!r.notified) { triggerAlert(r); r.notified=true; changed=true; render(); }
+  window.onYouTubeIframeAPIReady = function () {
+    ytPlayer = new YT.Player('yt-player', {
+      height: '1',
+      width: '1',
+      videoId: YT_VIDEO_ID,
+      playerVars: { start: YT_START_SECONDS, controls: 0, disablekb: 1, rel: 0 },
+      events: {
+        onReady: () => {
+          ytReady = true;
+          if (pendingPlay) { ytPlayer.playVideo(); pendingPlay = false; }
+        },
+        onStateChange: (e) => {
+          if (e.data === YT.PlayerState.PLAYING) playIcon.innerHTML = pauseSVG;
+          else if (e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.ENDED) playIcon.innerHTML = playSVG;
         }
       }
     });
-    if (changed) persist();
-    document.getElementById('st-exp').textContent =
-      data.filter(function(r){ return r.status==='active'&&new Date(r.date)<new Date(); }).length;
-  }, 1000);
+  };
 
-  function toggleSB() { document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sbback').classList.toggle('show'); }
-  function closeSB()  { document.getElementById('sidebar').classList.remove('open');  document.getElementById('sbback').classList.remove('show'); }
-
-  function setView(v) {
-    document.querySelectorAll('.view').forEach(function(x){ x.classList.remove('active'); });
-    document.getElementById('v-'+v).classList.add('active');
-    document.querySelectorAll('.nav-item').forEach(function(x){ x.classList.remove('active'); });
-    document.getElementById('tab-'+v).classList.add('active');
-    closeSB();
-  }
-
-  // Init
-  requestNotifPermission();
-  updateBanner();
-  initDates();
-  render();
+  playBtn.addEventListener('click', () => {
+    if (!ytReady) { pendingPlay = true; return; }
+    const state = ytPlayer.getPlayerState();
+    if (state === YT.PlayerState.PLAYING) {
+      ytPlayer.pauseVideo();
+    } else {
+      ytPlayer.playVideo();
+    }
+  });
 </script>
 
 </body>
